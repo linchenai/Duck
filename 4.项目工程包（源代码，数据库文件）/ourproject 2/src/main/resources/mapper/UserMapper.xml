@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper    
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinasofti.ssm.dao.UserMapper">
+
+<select id="selectPWD" parameterType="String" resultType="String">
+select user_pwd from user_info where user_account =#{user_account}
+</select>
+
+<update id="updateUserInfoByName" parameterType="user" >
+update user_info set user_name = #{name},user_nickname = #{nickname},
+user_gender = #{gender}, user_birth = #{birthday_Y},user_phone = #{phone},user_email = #{email}
+where user_account = #{account}
+</update>
+
+<select id="selectInfoByUser" parameterType="User" resultType="User">
+select *
+from user_info where user_account =#{account}
+</select>
+
+<update id="updatePSDByUser" parameterType="User" >
+update user_info set user_pwd = #{password}
+where user_account = #{account}
+</update>
+
+<select id="setQuestion_selectid" parameterType="User" resultType="int">
+select user_id
+from user_info where user_account =#{account}
+</select>
+
+<insert id="setQuestion_insertQuestion" parameterType="User" useGeneratedKeys="true">
+INSERT INTO user_security(user_id,sec_id,sec_question,sec_answer,sec_question2,sec_answer2) 
+values(#{id},#{id},#{question1},#{answer1},#{question2},#{answer2})
+</insert>
+
+
+<insert id="setAddress_insertAddress" parameterType="User" useGeneratedKeys="true">
+INSERT INTO user_addr(user_id,address_id,address,phone,user_name) 
+values(#{id},#{id},#{add_Com},#{add_phone},#{add_name})
+</insert>
+
+<select id="getRecordByEmail" resultType="user">
+select * from user_info where user_account=#{user_account}
+</select>
+<insert id="save">
+insert into user_info(user_account,user_pwd) values (#{account},#{password})
+</insert>
+</mapper>

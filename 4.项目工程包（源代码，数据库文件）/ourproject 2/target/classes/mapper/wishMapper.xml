@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper    
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinasofti.ssm.dao.wishMapper">
+<select id="selectAll" resultType="wishProduct">
+select * from wish_pro
+</select>
+
+
+<insert id="AddToWish"> 
+insert into wish_pro 
+(user_id,pro_id,wish_id,amount,pro_price,pro_value,pro_name,pro_image,pro_info)
+select 1,pro_id,1,1,pro_price,pro_price,pro_name,pro_image,pro_info
+from product
+where pro_info=#{name}
+</insert>
+
+<delete id="wishDelete">
+delete from wish_pro where pro_info=#{name}
+</delete>
+</mapper>
